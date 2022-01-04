@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    ports:
+      - '5432:5432'
+    container_name: nintendo
+    restart: always
+    volumes:
+      - nintendo-disk:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: nintendo
+
+volumes:
+  nintendo-disk:
