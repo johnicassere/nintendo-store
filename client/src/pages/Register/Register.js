@@ -1,5 +1,8 @@
 import { useState } from "react"
 import axios from 'axios';
+import { Container, Title, Form, Terms, Button } from "./styles";
+
+import Navbar from "../../components/Navbar/Navbar";
 
 export default function Register() {
 
@@ -12,40 +15,60 @@ export default function Register() {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const handleSubmit = event => {
-    
+    event.preventDefault();
+
+    const user = {
+      name: name,
+      nickname: nickname,
+      email: email,
+      birthdate: birthdate,
+      imageUrl: imageUrl,
+      password: password,
+      passwordConfirmation: passwordConfirmation
+    }
+
+    axios.post('user/register', user)
+    .then(response => console.log(response))
   }
 
   return(
-    <div>
-      <h2>Criar uma conta Nintendo</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <Navbar />
+      <Container>
+        <Title>Criar uma conta Nintendo</Title>
+        <Form onSubmit={handleSubmit}>
 
-        <label>Nome</label>
-        <input type='text' required onChange={event => setName(event.target.value)} /> <br />
+          <label>Nome</label>
+          <input type='text' required onChange={event => setName(event.target.value)} />
 
-        <label>Nickname</label>
-        <input type='text' required onChange={event => setNickname(event.target.value)}/> <br />
+          <label>Nickname</label>
+          <input type='text' required onChange={event => setNickname(event.target.value)}/>
 
-        <label>Email</label>
-        <input type='email' required onChange={event => setEmail(event.target.value)}/> <br />
+          <label>Email</label>
+          <input type='email' required onChange={event => setEmail(event.target.value)}/>
 
-        <label>Data de Nascimento</label>
-        <input type='text' required onChange={event => setBirthdate(event.target.value)} /> <br />
+          <label>Data de Nascimento</label>
+          <input type='text' required onChange={event => setBirthdate(event.target.value)} />
 
-        <label>Imagem de perfil</label>
-        <input type='text' required onChange={event => setImageUrl(event.target.value)} /> <br />
+          <label>Imagem de perfil</label>
+          <input type='text' required onChange={event => setImageUrl(event.target.value)} />
 
-        <label>Senha</label>
-        <input type='password' required onChange={event => setPassword(event.target.value)} /> <br />
+          <label>Senha</label>
+          <input type='password' required onChange={event => setPassword(event.target.value)} />
 
-        <label>Confirmação da Senha</label>
-        <input type='password' required onChange={event => setPasswordConfirmation(event.target.value)} /> <br />
+          <label>Confirmação da Senha</label>
+          <input type='password' required onChange={event => setPasswordConfirmation(event.target.value)} />
 
-        <input type='checkbox' required/>
-        <label>Eu concordo com os termos</label> <br />
-
-        <input type='submit' value='Continuar' />
-      </form>
-    </div>
+          <Terms>
+            <input type='checkbox' required/>
+            <label>Eu concordo com os termos do <a href='https://accounts.nintendo.com/term/eula/BR'>Acordo de usuário da conta Nintendo</a> e confirmo que li a <a href='https://accounts.nintendo.com/term/privacy_policy/BR'>Política de privacidade da Nintendo</a>.</label>
+          </Terms>
+          <Button>
+            <input type='submit' value='Continuar' />
+          </Button>
+          
+        </Form>
+      </Container>
+    </>
   )
 }
