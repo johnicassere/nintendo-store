@@ -2,8 +2,6 @@ import { useState } from "react"
 import axios from 'axios';
 import { Container, Title, Form, Terms, Button } from "./styles";
 
-import Navbar from "../../components/Navbar/Navbar";
-
 export default function Register() {
 
   const [name, setName] = useState('');
@@ -32,8 +30,6 @@ export default function Register() {
   }
 
   return(
-    <>
-      <Navbar />
       <Container>
         <Title>Criar uma conta Nintendo</Title>
         <Form onSubmit={handleSubmit}>
@@ -69,6 +65,6 @@ export default function Register() {
           
         </Form>
       </Container>
-    </>
+
   )
 }

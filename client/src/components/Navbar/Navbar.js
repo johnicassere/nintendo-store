@@ -1,3 +1,4 @@
+import logo from './logo.png';
 import {Container, Logo, Links, List, ListItem} from './styles';
 import {FaRegQuestionCircle, FaHeart, FaRegUser, FaUserPlus, FaGamepad} from "react-icons/fa";
 
@@ -5,42 +6,43 @@ export default function Navbar() {
   return(
     <Container>
       <Logo>
-        Nintendo
+        <a href='/'>
+          <img src={logo} alt='Nintendo' />
+        </a>
       </Logo>
-      <Links>
         <List>
-          <ListItem>
-            <a href=''>
+          <li>
+            <a href='https://pt-americas-support.nintendo.com/'>
               <FaRegQuestionCircle />
               <span>Suporte</span>
             </a>
-          </ListItem>
-          <ListItem>
-            <a href=''>
+          </li>
+          <li>
+            <a href='/wishlist'>
               <FaHeart />
               <span>Lista de Desejos</span>
             </a>
-          </ListItem>
-          <ListItem>
-            <a href=''>
+          </li>
+          <li>
+            <a href='/login'>
               <FaRegUser />
               <span>Login</span>
             </a>
-          </ListItem>
-          <ListItem>
-            <a href=''>
+          </li>
+          <li>
+            <a href='/register'>
               <FaUserPlus />
               <span>Criar conta</span>
             </a>
-          </ListItem>
-          <ListItem>
-            <a href=''>
+          </li>
+          <li>
+            <a href='/profile'>
               <FaGamepad />
               <span>Perfil</span>
             </a>
-          </ListItem>
+          </li>
         </List>
-      </Links>
+      
     </Container>
   )
 }

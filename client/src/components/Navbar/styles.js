@@ -18,10 +18,29 @@ export const Logo = styled.a`
   }
 `;
 
-export const Links = styled.div`
+export const List = styled.ul`
+  display: flex;
+  list-style: none;
 
+  li {
+    a {
+      text-decoration: none;
+      color: #484848;
+      font-weight: 700;
+      padding: 0 1rem;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+
+      span {
+        padding: 0 0.2rem;
+      }
+
+      &:hover {
+        color: #e60012;
+        cursor: pointer;
+        transition: all 200ms ease;
+      }
+    }
+  }
 `;
-
-export const List = styled.ul``;
-
-export const ListItem = styled.li``;
