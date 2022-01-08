@@ -13,8 +13,8 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   name      String
-  nickname  String @unique
-  email     String @unique
+  nickname  String   @unique
+  email     String   @unique
   birthdate String
   password  String
   imageUrl  String
@@ -30,6 +30,9 @@ model Game {
   storyline String
   price     Float
   imageUrl  String
+  age       String
+  ageInfo   String
+  studio    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User[]

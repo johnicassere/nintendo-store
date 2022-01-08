@@ -10,7 +10,6 @@ export class UserService {
   constructor(private database: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<User> {
-    // Olhar na documentação do prisma e tentar unificar daqui
     const emailExists = await this.database.user.findUnique({
       where: { email: data.email },
     });
@@ -26,9 +25,7 @@ export class UserService {
     if (nicknameExists) {
       throw new ConflictException('Nickname já cadastrado');
     }
-    //até aqui em um único comando
 
-    //validação da senha e da confirmação da senha
     if (data.password !== data.passwordConfirmation) {
       throw new ConflictException('Senhas não conferem');
     }
