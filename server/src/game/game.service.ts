@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateGameDto } from './dto/create-game.dto';
 import { CreateManyGamesDto } from './dto/create-many-game.dto';
@@ -15,14 +15,15 @@ export class GameService {
     return game;
   }
 
-  async createMany(data: CreateManyGamesDto): Promise<any[]> {
+  async createMany(data: CreateManyGamesDto) {
     const createdGames = [];
 
     data.games.map(async (game) => {
       const gameExist = await this.findPerName(game.name);
 
       if (!gameExist) {
-        createdGames.push(this.create(game));
+        const created = await this.create(game);
+        createdGames.push(created);
       }
     });
 
@@ -33,6 +34,23 @@ export class GameService {
     const game = await this.database.game.findFirst({
       where: { name: name },
     });
+    return game;
+  }
+
+  async findMany(): Promise<Game[]> {
+    const games = await this.database.game.findMany();
+    return games;
+  }
+
+  async findUnique(id: string): Promise<Game> {
+    const game = await this.database.game.findUnique({
+      where: { id },
+    });
+
+    if (!game) {
+      throw new NotFoundException('ID não encontrado');
+    }
+
     return game;
   }
 }

@@ -2,8 +2,24 @@ import Banner from '../../components/Banner/Banner';
 import Search from '../../components/Search/Search';
 import CardContainer from '../../components/CardContainer/CardContainer';
 import Card from '../../components/Card/Card';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+
+  const [games, setGames] = useState([]);
+
+  const getData = async () => {
+    await axios.get('/game/findMany')
+    .then(response => {
+      setGames(response.data)
+    })
+  }
+
+  useEffect(() => {
+    getData()
+  })
+
   return (
     <>
       <Banner 
@@ -13,31 +29,16 @@ export default function Home() {
       />
       <Search />
       <CardContainer title='Jogos'>
-        <Card 
-          image='https://assets.nintendo.com/image/upload/c_pad,f_auto,h_613,q_auto,w_1089/ncom/pt_BR/games/switch/s/super-smash-bros-ultimate-switch/hero?v=2021111809'
-          title='Super Smash Bros.™ Ultimate'
-          price='299.00'
-        />
-        <Card 
-          image='https://assets.nintendo.com/image/upload/c_pad,f_auto,h_613,q_auto,w_1089/ncom/pt_BR/games/switch/s/super-smash-bros-ultimate-switch/hero?v=2021111809'
-          title='Super Smash Bros.™ Ultimate'
-          price='299.00'
-        />
-        <Card 
-          image='https://assets.nintendo.com/image/upload/c_pad,f_auto,h_613,q_auto,w_1089/ncom/pt_BR/games/switch/s/super-smash-bros-ultimate-switch/hero?v=2021111809'
-          title='Super Smash Bros.™ Ultimate'
-          price='299.00'
-        />
-        <Card 
-          image='https://assets.nintendo.com/image/upload/c_pad,f_auto,h_613,q_auto,w_1089/ncom/pt_BR/games/switch/s/super-smash-bros-ultimate-switch/hero?v=2021111809'
-          title='Super Smash Bros.™ Ultimate'
-          price='299.00'
-        />
-        <Card 
-          image='https://assets.nintendo.com/image/upload/c_pad,f_auto,h_613,q_auto,w_1089/ncom/pt_BR/games/switch/s/super-smash-bros-ultimate-switch/hero?v=2021111809'
-          title='Super Smash Bros.™ Ultimate'
-          price='299.00'
-        />
+      {
+        games.map(game => (
+          <Card 
+            key={game.id}
+            image={game.imageUrl}
+            name={game.name}
+            price={game.price}
+          />
+        ))
+      }
       </CardContainer>
     </>
   )
